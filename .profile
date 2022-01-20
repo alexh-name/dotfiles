@@ -1,6 +1,12 @@
 export PATH=$PATH:/usr/local/go/bin 
 export GOPATH=$HOME/go/pkg/mod/
 
+eval "$(/opt/homebrew/bin/brew shellenv)"
+PATH="/opt/homebrew/opt/ccache/libexec:$PATH"
+PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
+CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
+
 #Color       #define       Value       RGB
 #black     COLOR_BLACK       0     0, 0, 0
 #red       COLOR_RED         1     max,0,0
