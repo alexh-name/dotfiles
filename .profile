@@ -1,5 +1,5 @@
 export PATH=$PATH:/usr/local/go/bin 
-export GOPATH=/Users/alex/go/pkg/mod/
+export GOPATH=$HOME/go/pkg/mod/
 
 #Color       #define       Value       RGB
 #black     COLOR_BLACK       0     0, 0, 0
