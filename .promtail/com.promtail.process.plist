@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>RunAtLoad</key>
+        <true/>
+    <key>KeepAlive</key>
+        <true/>
+    <key>Label</key>
+        <string>com.promtail.process</string>
+    <key>ProgramArguments</key>
+        <array>
+             <string>/opt/homebrew/Cellar/promtail/2.4.2/bin/promtail</string>
+             <string>-config.file=/opt/homebrew/Cellar/promtail/2.4.2/config.yaml</string>
+        </array>
+    <key>StandardOutPath</key>
+        <string>/var/log/promtail.log</string>
+    <key>StandardErrorPath</key>
+        <string>/var/log/promtail.log</string>
+    <key>UserName</key>
+        <string>root</string>
+</dict>
+</plist>

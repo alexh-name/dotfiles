@@ -1,0 +1,41 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+  #log_level: debug
+
+positions:
+  filename: /var/log/promtail.positions.yaml
+
+clients:
+  - url: http://worker.home.pomm.es:3100/loki/api/v1/push
+
+scrape_configs:
+  - job_name: system.log
+    pipeline_stages:
+      - match:
+          selector: '{job="system.log"}'
+          stages:
+            - multiline:
+                firstline: '^[a-zA-Z]+ [\d]+ [\d:]+ [a-zA-Z_.\-]+ [A-Za-z_.\-\ ]+\[[0-9]+\]: .*'
+            # capture "timestamp", "host", "process", "pid, "msg" fields
+            - regex:
+                expression: '(?P<timestamp>[a-zA-Z]+ [\d]+ [\d:]+) (?P<host>[a-zA-Z_.\-]+) (?P<process>[A-Za-z_.\-\ ]+)\[(?P<pid>[0-9]+)\]: (?P<msg>.*)'
+            # promote to labels
+            - labels:
+                host:
+                process:
+                pid:
+            # specify the timestamp format and source field
+            - timestamp:
+                format: 'Jan 01 15:04:05'
+                source: timestamp
+            - output:
+                source: msg
+    static_configs:
+    - targets:
+        - localhost
+      labels:
+        host: Alexs-Mac-mini.home.pomm.es
+        job: system.log  # A `job` label is fairly standard in prometheus and useful for linking metrics and logs.
+        __path__: /var/log/system.log 
+
