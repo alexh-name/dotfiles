@@ -1,6 +1,3 @@
-export PATH=$PATH:/usr/local/go/bin 
-export GOPATH=/Users/alex/go/pkg/mod/
-
 #Color       #define       Value       RGB
 #black     COLOR_BLACK       0     0, 0, 0
 #red       COLOR_RED         1     max,0,0
