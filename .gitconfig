@@ -1,0 +1,18 @@
+# This is Git's per-user configuration file.
+[core]
+# Please adapt and uncomment the following lines:
+	user = alexh-name
+	email = git@alexh.name
+	excludesfile = /Users/alex/.gitignore_global
+[user]
+	name = alexh-name
+	email = git@alexh.name
+	signingkey = D8CF8DF6
+[push]
+	default = simple
+[commit]
+	gpgsign = true
+[init]
+	defaultBranch = main
+[pull]
+	rebase = false
