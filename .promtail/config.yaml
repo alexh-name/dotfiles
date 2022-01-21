@@ -40,3 +40,31 @@ scrape_configs:
         job: system.log  # A `job` label is fairly standard in prometheus and useful for linking metrics and logs.
         __path__: /var/log/system.log 
 
+  - job_name: launchd.log
+    pipeline_stages:
+      - match:
+          selector: '{job="launchd.log"}'
+          stages:
+            - multiline:
+                firstline: '^[\d]+\-[\d]+\-[\d]+ [\d:\.]+ (\([a-zA-Z\d\ \[\]\.\-\_\/]+\)\ )?\<[a-zA-Z]+\>: .*'
+            # capture "timestamp", "host", "process", "pid, "msg" fields
+            - regex:
+                expression: '^(?P<timestamp>[\d]+\-[\d]+\-[\d]+ [\d:\.]+) (\((?P<process>[a-zA-Z\d\ \[\]\.\-\_\/]+)\)\ )?<(?P<level>[a-zA-Z]+)>: (?P<msg>.*)'
+            # promote to labels
+            - labels:
+                process:
+                level:
+            # specify the timestamp format and source field
+            - timestamp:
+                format: '2006-01-02 15:04:05.000000'
+                source: timestamp
+                location: "Europe/Berlin"
+            - output:
+                source: msg
+    static_configs:
+    - targets:
+        - localhost
+      labels:
+        host: Alexs-Mac-mini.home.pomm.es
+        job: launchd.log  # A `job` label is fairly standard in prometheus and useful for linking metrics and logs.
+        __path__: /var/log/com.apple.xpc.launchd/launchd.log
