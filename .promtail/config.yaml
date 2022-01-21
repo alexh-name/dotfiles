@@ -27,8 +27,9 @@ scrape_configs:
                 pid:
             # specify the timestamp format and source field
             - timestamp:
-                format: 'Jan 01 15:04:05'
+                format: 'Jan 02 15:04:05'
                 source: timestamp
+                location: "Europe/Berlin"
             - output:
                 source: msg
     static_configs:
