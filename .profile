@@ -1,3 +1,4 @@
+export LC_ALL=C
 HISTFILE="$HOME/.mksh_history"
 
 export PATH=$PATH:/usr/local/go/bin 
